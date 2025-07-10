@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Define the directory path
-DIR="/home/ubuntu/scripts/abraham-test"
+DIR="/home/ubuntu/scripts/"
 
 # Define the filename
-FILENAME="testfile.txt"
+FILENAME="abrahamtestfile.txt"
 
 # Navigate to the directory
 cd "$DIR" || { echo "Directory $DIR not found"; exit 1; }
