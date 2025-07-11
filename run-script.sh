@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the directory path
-DIR="/home/ubuntu/scripts/"
+DIR="/home/ubuntu/"
 
 # Define the filename
 FILENAME="abrahamtestfile.txt"
