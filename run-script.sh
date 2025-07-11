@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Threshold in percentage
-THRESHOLD=40
+THRESHOLD=14
 
 # Dynamically get all physical mount points (exclude tmpfs, overlay, etc.)
 MOUNT_POINTS=$(df -hT | awk '$2 ~ /ext[2-4]|xfs|btrfs/ {print $7}')
