@@ -14,7 +14,7 @@ for MOUNT in $MOUNT_POINTS; do
 
     if [ "$USAGE" -ge "$THRESHOLD" ]; then
         echo "Disk usage on $MOUNT is above $THRESHOLD%. Running cleanup..."
-        /usr/bin/python3 /home/ubuntu/scripts/retain2.py "$MOUNT"
+        /usr/bin/python3 /home/ubuntu/script/retain2.py "$MOUNT"
     else
         echo "Disk usage on $MOUNT is below $THRESHOLD%. No action needed."
         exit 0
