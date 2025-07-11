@@ -1,16 +1,22 @@
 #!/bin/bash
 
-# Define the directory path
-DIR="/home/ubuntu/"
+# Threshold in percentage
+THRESHOLD=40
 
-# Define the filename
-FILENAME="abrahamtestfile.txt"
+# Dynamically get all physical mount points (exclude tmpfs, overlay, etc.)
+MOUNT_POINTS=$(df -hT | awk '$2 ~ /ext[2-4]|xfs|btrfs/ {print $7}')
 
-# Navigate to the directory
-cd "$DIR" || { echo "Directory $DIR not found"; exit 1; }
+# Loop through each mount point
+for MOUNT in $MOUNT_POINTS; do
+    USAGE=$(df "$MOUNT" | awk 'NR==2 {gsub(/%/, "", $5); print $5}')
 
-# Create a new file
-touch "$FILENAME"
+    echo "Disk usage for $MOUNT: $USAGE%"
 
-# Confirm file creation
-echo "Created file: $DIR/$FILENAME"
+    if [ "$USAGE" -ge "$THRESHOLD" ]; then
+        echo "Disk usage on $MOUNT is above $THRESHOLD%. Running cleanup..."
+        /usr/bin/python3 /home/ubuntu/scripts/retain2.py "$MOUNT"
+    else
+        echo "Disk usage on $MOUNT is below $THRESHOLD%. No action needed."
+        exit 0
+    fi
+done
